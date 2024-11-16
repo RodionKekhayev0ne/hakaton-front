@@ -21,11 +21,14 @@ const StudentList = ({ onStudentClick }) => {
     setSelectedStudent(null);
   };
 
-  const handleStudentClick = (student) => {
-    setSelectedStudent(student);
-    setShowAddForm(true);
-    if (onStudentClick) {
-      onStudentClick(student);
+  const handleStudentClick = (student, event) => {
+    // Открываем форму только при клике на строку, но не на чекбокс
+    if (event.target.type !== 'checkbox') {
+      setSelectedStudent(student);
+      setShowAddForm(true);
+      if (onStudentClick) {
+        onStudentClick(student);
+      }
     }
   };
 
@@ -150,7 +153,7 @@ const StudentList = ({ onStudentClick }) => {
             <tr
               key={student.id}
               className="hover:bg-gray-200 cursor-pointer"
-              onClick={() => handleStudentClick(student)}
+              onClick={(event) => handleStudentClick(student, event)}
             >
               <td className="px-4 py-2 border">
                 <input

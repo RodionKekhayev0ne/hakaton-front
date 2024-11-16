@@ -9,6 +9,7 @@ import TrainerList from './components/TrainerList';
 import SectionList from './components/SectionList';
 import StudentList from './components/StudentList';
 import { AuthContext } from './context/AuthContext';
+import AdminDashboard from './components/AdminDashboard';
 
 const AppContent = () => {
   const { user } = useContext(AuthContext);
@@ -38,6 +39,7 @@ const AppContent = () => {
           {isAuthenticated && user.role === 'admin' && (
             <>
               <Route path="/admin" element={<AdminPage />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/admin/trainers" element={<TrainerList />} />
               <Route path="/admin/sections" element={<SectionList />} />
               <Route path="/admin/students" element={<StudentList />} />
