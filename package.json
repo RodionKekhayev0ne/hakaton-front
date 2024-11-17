@@ -1,6 +1,7 @@
 {
   "name": "hakaton-front",
   "version": "0.1.0",
+  "homepage": "http://209.38.196.77:3001/admin",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
