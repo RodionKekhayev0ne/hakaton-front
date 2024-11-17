@@ -15,7 +15,7 @@ const LoginForm = () => {
     axios.post('http://209.38.196.77:3000/regauth/admin/auth', {
       email:username,
       pass:password,
-    }, {withCredentials: true})
+    })
         .then((response) => {
           navigate('/admin')
            // Отключаем индикатор загрузки
