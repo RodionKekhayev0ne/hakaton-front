@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import AddStudentForm from './AddStudentForm';
+import axios from "axios";
 
 const StudentList = ({ onStudentClick }) => {
   const [showAddForm, setShowAddForm] = useState(false);
@@ -15,7 +16,16 @@ const StudentList = ({ onStudentClick }) => {
 
   const allTrainers = ['Тренер 1', 'Тренер 2', 'Тренер 3']; // Пример списка тренеров
   const allSections = ['Секция 1', 'Секция 2', 'Секция 3', 'Секция 4']; // Пример списка всех доступных секций
+  const [studentsData, setStudentsData] = useState([]);
 
+  useEffect(() => {
+    function getLessonData() {
+      axios.get('http://localhost:3000/admin/students', { withCredentials: true })
+          .then((response) => setStudentsData(response.data.students))
+          .catch((err) => console.error(err));
+    }
+    getLessonData();
+  }, []);
   const handleAddStudent = () => {
     setShowAddForm(true);
     setSelectedStudent(null);
@@ -128,9 +138,9 @@ const StudentList = ({ onStudentClick }) => {
       </div>
       <table className="min-w-full bg-white border border-gray-300">
         <thead>
-          <tr className="bg-gray-100">
-            <th className="px-4 py-2 border">
-              <input
+        <tr className="bg-gray-100">
+          <th className="px-4 py-2 border">
+            <input
                 type="checkbox"
                 onChange={(e) => {
                   if (e.target.checked) {
@@ -140,41 +150,46 @@ const StudentList = ({ onStudentClick }) => {
                   }
                 }}
                 checked={selectedStudents.length === filteredStudents.length && filteredStudents.length > 0}
-              />
-            </th>
-            <th className="px-4 py-2 border">Имя</th>
-            <th className="px-4 py-2 border">Фамилия</th>
-            <th className="px-4 py-2 border">Тренер</th>
-            <th className="px-4 py-2 border">Секции</th>
-          </tr>
+            />
+          </th>
+          <th className="px-4 py-2 border">Имя</th>
+          <th className="px-4 py-2 border">Фамилия</th>
+          <th className="px-4 py-2 border">Номер телефона</th>
+          <th className="px-4 py-2 border">Номер телефона родителя</th>
+          <th className="px-4 py-2 border">Почта</th>
+          <th className="px-4 py-2 border">Секции</th>
+        </tr>
         </thead>
         <tbody>
-          {filteredStudents.map((student) => (
+        {studentsData.map((student) => (
             <tr
-              key={student.id}
-              className="hover:bg-gray-200 cursor-pointer"
-              onClick={(event) => handleStudentClick(student, event)}
+                key={student.id}
+                className="hover:bg-gray-200 cursor-pointer"
+                onClick={(event) => handleStudentClick(student, event)}
             >
               <td className="px-4 py-2 border">
                 <input
-                  type="checkbox"
-                  checked={selectedStudents.includes(student.id)}
-                  onChange={(e) => {
-                    e.stopPropagation(); // Останавливаем событие, чтобы не открывать форму при нажатии на чекбокс
-                    handleSelectStudent(student.id);
-                  }}
+                    type="checkbox"
+                    checked={selectedStudents.includes(student._id)}
+                    onChange={(e) => {
+                      e.stopPropagation(); // Останавливаем событие, чтобы не открывать форму при нажатии на чекбокс
+                      handleSelectStudent(student.id);
+                    }}
                 />
               </td>
-              <td className="px-4 py-2 border">{student.firstName}</td>
+              <td className="px-4 py-2 border">{student.name}</td>
               <td className="px-4 py-2 border">{student.lastName}</td>
-              <td className="px-4 py-2 border">{student.trainer}</td>
-              <td className="px-4 py-2 border">{student.sections.join(', ')}</td>
+              <td className="px-4 py-2 border">{student.phoneNumber}</td>
+              <td className="px-4 py-2 border">{student.parentPhoneNumber}</td>
+              <td className="px-4 py-2 border">{student.email}</td>
+
+              <td className="px-4 py-2 border">{student.lessons.map(lesson => lesson.title + " ")}</td>
             </tr>
-          ))}
+        ))}
         </tbody>
       </table>
       {showAddForm && (
-        <AddStudentForm
+          <AddStudentForm
           selectedStudent={selectedStudent}
           allSections={allSections}
           onClose={handleCloseForm}

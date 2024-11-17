@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
+import axios from "axios";
 
 const AddSectionForm = ({ selectedSection, onClose }) => {
   const [name, setName] = useState(selectedSection ? selectedSection.name : '');
   const [description, setDescription] = useState(selectedSection ? selectedSection.description : '');
+  const [number, setNumber] = useState(selectedSection ? selectedSection.description : '');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log({ name, description });
+  const handleSubmit = () => {
+    axios.post('http://localhost:3000/admin/createLesson', {
+      lesson_title:name,
+      description:description,
+      phone_number:number,
+    },{ withCredentials: true })
+        .then((response) => console.log(response.data))
+        .catch((err) => console.error(err));
+
+    onClose();
     onClose();
   };
 
@@ -18,18 +27,26 @@ const AddSectionForm = ({ selectedSection, onClose }) => {
           <div className="mb-2">
             <label className="block">Название</label>
             <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="border p-2 w-full"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="border p-2 w-full"
             />
           </div>
           <div className="mb-2">
             <label className="block">Описание</label>
             <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="border p-2 w-full"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="border p-2 w-full"
+            />
+          </div>
+          <div className="mb-2">
+            <label className="block">Номер телефона Тренера</label>
+            <input
+                value={number}
+                onChange={(e) => setNumber(e.target.value)}
+                className="border p-2 w-full"
             />
           </div>
           <button type="submit" className="bg-blue-500 text-white px-4 py-2 mt-2">

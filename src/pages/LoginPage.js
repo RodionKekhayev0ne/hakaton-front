@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import axios from "axios";
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -9,6 +10,21 @@ const LoginForm = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
+
+  function auth(){
+    axios.post('http://localhost:3000/regauth/admin/auth', {
+      email:username,
+      pass:password,
+    }, {withCredentials: true})
+        .then((response) => {
+          navigate('/admin')
+           // Отключаем индикатор загрузки
+        })
+        .catch((err) => {
+          console.log(err.message); // Сохраняем ошибку
+          navigate('/')
+        });
+  }
   const handleLogin = () => {
     const role = isAdminForm ? 'admin' : 'trainer';
     if (login(username, password, role)) {
@@ -49,7 +65,7 @@ const LoginForm = () => {
           </div>
           <button
             type="button"
-            onClick={handleLogin}
+            onClick={event => auth()}
             className={`w-full py-2 mt-2 rounded ${
               isAdminForm ? 'bg-green-500' : 'bg-blue-500'
             } text-white`}
@@ -61,7 +77,7 @@ const LoginForm = () => {
             onClick={() => setIsAdminForm(!isAdminForm)}
             className="w-full py-2 mt-4 bg-gray-300 text-black rounded"
           >
-            Переключить на {isAdminForm ? 'Войти как админ' : 'войти как тренер'}
+            Переключить на {isAdminForm ? 'Войти как тренер' : 'войти как админ'}
           </button>
         </form>
       </div>

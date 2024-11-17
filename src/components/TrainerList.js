@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import AddTrainerForm from './AddTrainerForm';
+import axios from "axios";
 
 const TrainerList = ({ onTrainerClick }) => {
   const [showAddForm, setShowAddForm] = useState(false);
@@ -14,7 +15,16 @@ const TrainerList = ({ onTrainerClick }) => {
     { id: 6, name: 'Мария Петрова', subject: 'Физика', sections: ['Секция 2', 'Секция 3'] },
     // Добавьте больше данных по необходимости
   ]);
+  const [teachersData, setTeachersData] = useState([]);
 
+  useEffect(() => {
+    function getLessonData() {
+      axios.get('http://localhost:3000/admin/teachers', { withCredentials: true })
+          .then((response) => setTeachersData(response.data.teachers))
+          .catch((err) => console.error(err));
+    }
+    getLessonData();
+  }, []);
   const handleAddTrainer = () => {
     setShowAddForm(true);
     setSelectedTrainer(null);
@@ -62,9 +72,9 @@ const TrainerList = ({ onTrainerClick }) => {
       </button>
       <table className="min-w-full bg-white border border-gray-300">
         <thead>
-          <tr className="bg-gray-100">
-            <th className="px-4 py-2 border">
-              <input
+        <tr className="bg-gray-100">
+          <th className="px-4 py-2 border">
+            <input
                 type="checkbox"
                 onChange={(e) => {
                   if (e.target.checked) {
@@ -74,44 +84,51 @@ const TrainerList = ({ onTrainerClick }) => {
                   }
                 }}
                 checked={selectedTrainers.length === trainers.length && trainers.length > 0}
-              />
-            </th>
-            <th className="px-4 py-2 border">Имя</th>
-            <th className="px-4 py-2 border">Предмет</th>
-            <th className="px-4 py-2 border">Секции</th>
-          </tr>
+            />
+          </th>
+          <th className="px-4 py-2 border">Тренер</th>
+          <th className="px-4 py-2 border">Почта</th>
+          <th className="px-4 py-2 border">Секции</th>
+          <th className="px-4 py-2 border">Номер телефона</th>
+        </tr>
         </thead>
         <tbody>
-          {trainers.map((trainer) => (
+        {teachersData.map((trainer) => (
             <tr
-              key={trainer.id}
-              className="hover:bg-gray-200 cursor-pointer"
+                key={trainer._id}
+                className="hover:bg-gray-200 cursor-pointer"
             >
               <td className="px-4 py-2 border">
                 <input
-                  type="checkbox"
-                  checked={selectedTrainers.includes(trainer.id)}
-                  onChange={() => handleSelectTrainer(trainer.id)}
+                    type="checkbox"
+                    checked={selectedTrainers.includes(trainer._id)}
+                    onChange={() => handleSelectTrainer(trainer._id)}
                 />
               </td>
               <td className="px-4 py-2 border" onClick={() => handleTrainerClick(trainer)}>
-                {trainer.name}
+                {trainer.name + " " + trainer.lastName}
               </td>
               <td className="px-4 py-2 border" onClick={() => handleTrainerClick(trainer)}>
-                {trainer.subject}
+                {trainer.email}
               </td>
               <td className="px-4 py-2 border" onClick={() => handleTrainerClick(trainer)}>
-                {trainer.sections.join(', ')}
+                {trainer.lessons.map(lesson => lesson.title)}
+                <br/>
+                {trainer.lessons.map(lesson => " Кол-во учеников: " + lesson.students.length)}
+              </td>
+              <td className="px-4 py-2 border" onClick={() => handleTrainerClick(trainer)}>
+                {trainer.phoneNumber}
+
               </td>
             </tr>
-          ))}
+        ))}
         </tbody>
       </table>
       {showAddForm && (
-        <AddTrainerForm
-          selectedTrainer={selectedTrainer}
-          onClose={() => setShowAddForm(false)}
-        />
+          <AddTrainerForm
+              selectedTrainer={selectedTrainer}
+              onClose={() => setShowAddForm(false)}
+          />
       )}
     </div>
   );

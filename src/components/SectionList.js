@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import AddSectionForm from './AddSectionForm';
+import axios from "axios";
 
 const SectionList = ({ onSectionClick }) => {
   const [showAddForm, setShowAddForm] = useState(false);
@@ -10,9 +11,21 @@ const SectionList = ({ onSectionClick }) => {
     { id: 2, name: 'Секция 2', description: 'Описание секции 2', students: ['Студент 3'] },
   ]);
 
+  const [lessonsData, setLessonsData] = useState([]);
+
+  useEffect(() => {
+    function getLessonData() {
+      axios.get('http://localhost:3000/admin/lessons', { withCredentials: true })
+          .then((response) => setLessonsData(response.data.lessons))
+          .catch((err) => console.error(err));
+    }
+    getLessonData();
+  }, []);
+
   const handleAddSection = () => {
     setShowAddForm(true);
   };
+
 
   const handleSectionClick = (section, event) => {
     // Проверяем, было ли событие вызвано из чекбокса
@@ -81,7 +94,7 @@ const SectionList = ({ onSectionClick }) => {
           </tr>
         </thead>
         <tbody>
-          {sections.map((section) => (
+          {lessonsData.map((section) => (
             <tr
               key={section.id}
               className="hover:bg-gray-200 cursor-pointer"
@@ -90,14 +103,14 @@ const SectionList = ({ onSectionClick }) => {
               <td className="px-4 py-2 border">
                 <input
                   type="checkbox"
-                  checked={selectedSections.includes(section.id)}
+                  checked={selectedSections.includes(section._id)}
                   onChange={(e) => {
                     e.stopPropagation(); // Останавливает событие, чтобы не открывать модальное окно при нажатии на чекбокс
-                    handleSelectSection(section.id);
+                    handleSelectSection(section._id);
                   }}
                 />
               </td>
-              <td className="px-4 py-2 border">{section.name}</td>
+              <td className="px-4 py-2 border">{section.title}</td>
               <td className="px-4 py-2 border">{section.description}</td>
               <td className="px-4 py-2 border">{section.students.length}</td>
             </tr>
