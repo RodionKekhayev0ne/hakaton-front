@@ -7,7 +7,7 @@ const AddSectionForm = ({ selectedSection, onClose }) => {
   const [number, setNumber] = useState(selectedSection ? selectedSection.description : '');
 
   const handleSubmit = () => {
-    axios.post('http://localhost:3000/admin/createLesson', {
+    axios.post('http://209.38.196.77:3000/admin/createLesson', {
       lesson_title:name,
       description:description,
       phone_number:number,

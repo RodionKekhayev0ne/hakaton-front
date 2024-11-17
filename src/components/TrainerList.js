@@ -19,7 +19,7 @@ const TrainerList = ({ onTrainerClick }) => {
 
   useEffect(() => {
     function getLessonData() {
-      axios.get('http://localhost:3000/admin/teachers', { withCredentials: true })
+      axios.get('http://209.38.196.77:3000/admin/teachers', { withCredentials: true })
           .then((response) => setTeachersData(response.data.teachers))
           .catch((err) => console.error(err));
     }

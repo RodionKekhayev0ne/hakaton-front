@@ -15,7 +15,7 @@ const SectionList = ({ onSectionClick }) => {
 
   useEffect(() => {
     function getLessonData() {
-      axios.get('http://localhost:3000/admin/lessons', { withCredentials: true })
+      axios.get('http://209.38.196.77:3000/admin/lessons', { withCredentials: true })
           .then((response) => setLessonsData(response.data.lessons))
           .catch((err) => console.error(err));
     }

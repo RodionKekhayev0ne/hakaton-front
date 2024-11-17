@@ -20,7 +20,7 @@ const AddStudentForm = ({ selectedStudent, allSections, onClose }) => {
   // };
 
   const handleSubmit = () => {
-    axios.post('http://localhost:3000/regauth/student', {
+    axios.post('http://209.38.196.77:3000/regauth/student', {
       name:firstName,
       lastname:lastName,
       pass:pass,

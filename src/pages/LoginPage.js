@@ -12,7 +12,7 @@ const LoginForm = () => {
 
 
   function auth(){
-    axios.post('http://localhost:3000/regauth/admin/auth', {
+    axios.post('http://209.38.196.77:3000/regauth/admin/auth', {
       email:username,
       pass:password,
     }, {withCredentials: true})

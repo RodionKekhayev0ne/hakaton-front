@@ -15,7 +15,7 @@ const AddTrainerForm = ({ selectedTrainer, onClose }) => {
 
   useEffect(() => {
     function getLessonData() {
-      axios.get('http://localhost:3000/admin/lessonsWithoutTeacher', { withCredentials: true })
+      axios.get('http://209.38.196.77:3000/admin/lessonsWithoutTeacher', { withCredentials: true })
           .then((response) => setLessonData(response.data.lessons))
           .catch((err) => console.error(err));
     }
@@ -32,7 +32,7 @@ const AddTrainerForm = ({ selectedTrainer, onClose }) => {
   };
 
   const handleSubmit = () => {
-    axios.post('http://localhost:3000/regauth/teacher', {
+    axios.post('http://209.38.196.77:3000/regauth/teacher', {
       name:name,
       lastName:lastname,
       email:email,
