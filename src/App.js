@@ -38,7 +38,7 @@ const AppContent = () => {
           {/* Страницы для администратора */}
           {isAuthenticated && user.role === 'admin' && (
             <>
-              <Route path="/admin" element={<AdminPage />} />
+              <Route path="http://209.38.196.77:3001/admin" element={<AdminPage />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/admin/trainers" element={<TrainerList />} />
               <Route path="/admin/sections" element={<SectionList />} />
