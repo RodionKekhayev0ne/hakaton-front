@@ -12,7 +12,7 @@ const AdminDashboard = () => {
   const [visitage, setVisitage] = useState([]);
 
   const handleSectionClick = (id) => {
-    axios.post('http://localhost:3000/admin/visits', {
+    axios.post('http://209.38.196.77:3000/admin/visits', {
       lessonId: id
     }, { withCredentials: true })
         .then((response) => {
@@ -28,7 +28,9 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     function getLessonData() {
-      axios.get('http://localhost:3000/admin/lessons', { withCredentials: true })
+      axios.get('http://209.38.196.77:3000/admin/lessons', { withCredentials: true, headers: {
+              'Referrer-Policy': 'strict-origin-when-cross-origin'
+          }})
           .then((response) => setLessonData(response.data.lessons))
           .catch((err) => console.error(err));
     }

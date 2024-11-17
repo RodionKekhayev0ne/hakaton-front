@@ -1,8 +1,8 @@
 
-‰javascript:S1481"@Remove the declaration of the unused 'selectedSection' variable.(Ñıôù8¯‡´Ñ³2J$6cc3ef48-72fa-4ff7-b49d-5f736a4a9675
-†javascript:S1854"=Remove this useless assignment to variable "selectedSection".(Ñıôù8¯‡´Ñ³2J$44e11de2-0998-4ee5-9628-3dd971588855
-‘javascript:S68486"ÂAvoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.(¯ƒúÁøÿÿÿÿ8¯‡´Ñ³2J$d3e7bef2-ef94-4d2f-9e24-7a6a53efe2a5
-­javascript:S10826"_Visible, non-interactive elements with click handlers must have at least one keyboard listener.(¯ƒúÁøÿÿÿÿ8¯‡´Ñ³2J$536f94f0-1f20-4e9a-acdb-a307dbbe3bac
- javascript:S6478L"RMove this component definition out of the parent component and pass data as props.(úßÇıÿÿÿÿ8¯‡´Ñ³2J$81c4f65c-62e3-4512-ad6d-77165cde6645
-gjavascript:S6479h"Do not use Array index in keys(ªæª¸8¯‡´Ñ³2J$716825fb-27ec-4429-a2a9-72dc057530ec
-ljavascript:S6479m"Do not use Array index in keys(¸½Ğıÿÿÿÿ8¯‡´Ñ³2J$1e7da1cb-2873-4452-ae1a-05cd486c58e5
+‰javascript:S1481"@Remove the declaration of the unused 'selectedSection' variable.(Ñıôù8¯‡´Ñ³2J$666b5c2c-9bfb-4513-8e55-484c5efbb62e
+†javascript:S1854"=Remove this useless assignment to variable "selectedSection".(Ñıôù8¯‡´Ñ³2J$7994db46-9e02-40a3-97d1-f9cdd3768bad
+‘javascript:S68488"ÂAvoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.(¯ƒúÁøÿÿÿÿ8¯‡´Ñ³2J$7d8da19c-2881-41f1-a85e-f4b569a92623
+­javascript:S10828"_Visible, non-interactive elements with click handlers must have at least one keyboard listener.(¯ƒúÁøÿÿÿÿ8¯‡´Ñ³2J$8ed30249-3060-4f54-a91b-9bbdd3f342c3
+ javascript:S6478N"RMove this component definition out of the parent component and pass data as props.(úßÇıÿÿÿÿ8¯‡´Ñ³2J$58a1922e-37dc-44d6-9b8b-9f2cfe380e15
+gjavascript:S6479j"Do not use Array index in keys(ªæª¸8¯‡´Ñ³2J$2b4579a0-0944-4b83-9e88-3c4531eea44c
+ljavascript:S6479o"Do not use Array index in keys(¸½Ğıÿÿÿÿ8¯‡´Ñ³2J$6cb0f35c-2e85-4685-9364-e0a36593cb79

@@ -36,16 +36,13 @@ const AppContent = () => {
           <Route path="/" element={<LoginPage />} />
 
           {/* Страницы для администратора */}
-          {isAuthenticated && user.role === 'admin' && (
             <>
-              <Route path="http://209.38.196.77:3001/admin" element={<AdminPage />} />
+              <Route path="/admin" element={<AdminPage />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/admin/trainers" element={<TrainerList />} />
               <Route path="/admin/sections" element={<SectionList />} />
               <Route path="/admin/students" element={<StudentList />} />
             </>
-          )}
-
           {/* Страницы для тренера */}
           {isAuthenticated && user.role === 'trainer' && (
             <Route path="/trainer" element={<TrainerPage />} />
